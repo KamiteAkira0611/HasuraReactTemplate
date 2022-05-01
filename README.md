@@ -1,4 +1,4 @@
-# Hasura + React + NestJS Template
+# Hasura + React（TSX） + NestJS Template
 
 <img width="full" alt="スクリーンショット 2022-05-01 17 05 36" src="https://user-images.githubusercontent.com/57242907/166137563-e12a7f83-e435-4e37-ad51-012d875d6b77.png">
 
