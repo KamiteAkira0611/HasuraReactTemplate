@@ -47,13 +47,13 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
-  _LABELS: gcb-trigger-id=15a2e9c3-9d9e-4c6c-81f3-5cc0fceb183c
-  _TRIGGER_ID: 15a2e9c3-9d9e-4c6c-81f3-5cc0fceb183c
+  # edit!
+  _LABELS:
+  _TRIGGER_ID:
   _DEPLOY_REGION: asia-northeast1
   _GCR_HOSTNAME: asia.gcr.io
   _PLATFORM: managed
-  _SERVICE_NAME: reserve-headless-cms
+  _SERVICE_NAME:
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
-  - reserve-headless-cms
