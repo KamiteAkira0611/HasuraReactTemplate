@@ -1,0 +1,22 @@
+table:
+  schema: public
+  name: memos
+insert_permissions:
+  - role: anonymous
+    permission:
+      check: {}
+      columns:
+        - id
+        - title
+        - created_at
+        - updated_at
+      backend_only: false
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - title
+        - created_at
+        - updated_at
+      filter: {}

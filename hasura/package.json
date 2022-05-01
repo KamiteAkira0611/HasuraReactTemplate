@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "hasura": "hasura console --endpoint http://localhost:8080 --admin-secret 'admin'",
+    "hasura:docker": "hasura console --endpoint http://graphql-engine:8080 --admin-secret 'admin'"
+  },
+  "devDependencies": {
+    "hasura-cli": "^2.6.0"
+  }
+}

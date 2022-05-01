@@ -1,0 +1,55 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+  graphql-engine:
+    build:
+      context: .
+      dockerfile: ./hasura/Dockerfile
+      args:
+        DB_USER: ${POSTGRES_USER}
+        DB_PASSWORD: ${POSTGRES_PASSWORD}
+        DB_HOST: ${POSTGRES_HOST}
+        DB_PORT: ${POSTGRES_PORT}
+        DB_DATABASE: ${POSTGRES_DB}
+        HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+        HASURA_JWT_SECRET: ${HASURA_JWT_SECRET}
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  front:
+    image: node:16.10
+    working_dir: /app
+    command: bash -c "yarn install && yarn start"
+    volumes:
+      - ./frontend:/app
+    tty: true
+    ports:
+      - 3000:3000
+    environment:
+      REACT_APP_FIREBASE_API_KEY: ${FIREBASE_API_KEY}
+      REACT_APP_FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN}
+      REACT_APP_FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID}
+      REACT_APP_FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
+      REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${FIREBASE_MESSAGING_SENDER_ID}
+      REACT_APP_FIREBASE_APP_ID: ${FIREBASE_APP_ID}
+      REACT_APP_FIREBASE_MEASUREMENT_ID: ${FIREBASE_MEASUREMENT_ID}
+      REACT_APP_FIREBASE_DATABASE_URL: ${FIREBASE_DATABASE_URL}
+      REACT_APP_HASURA_ENDPOINT: ${HASURA_ENDPOINT}
+      REACT_APP_HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+    depends_on:
+      - graphql-engine
+
+volumes:
+  db_data:
